@@ -11,8 +11,6 @@
 No longer can you swim in heavy plate; now your armour, equipment, or carried items drag you down while swimming. Options exist for formulas
 based on equipped armour weight class, total equipment weight, or encumbrance percentage.
 
-Enable debug logging, and check MWSE for the exact values being used.
-
 [Video of the mod in action](https://gfycat.com/needysevereisabellineshrike).
 
 ## Formulas ##
@@ -29,6 +27,8 @@ and quite easy, to have values of 0 for equipped armour and total equipment weig
 vary greatly from character to character, while armour class and weight are static across the board. For a happy medium between the frustration
 of realism and frustration-free video game-ness, I recommend the default values, and not wearing heavy armour whilst swimming, but the options
 are there for those who desire them.
+
+Enable debug logging, and check MWSE for the exact values being used.
 
 ## Requirements ##
 MGE XE with MWSE @ [Nexus Mods](https://www.nexusmods.com/morrowind/mods/41102) \(Make sure you run MWSE-Update.exe\)

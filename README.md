@@ -18,7 +18,7 @@ based on equipped armour weight class, total equipment weight, or encumbrance pe
 **Equipped armour** (*Default option*): the armour class of each equipped item (+1 so Light armour is affected as well,
 so Light = 1, Medium = 2, Heavy = 3) is added up for a value of 0 - 27 then multiplied by a tenth of the down-pull multiplier (See MCM).
 
-**Total Equipment Weight**: the weight of each equipped item is added up, doubled, then multiplied by a hundredth of the down-pull multiplier.
+**Total Equipment Weight**: the weight of each equipped item is added up, the total doubled, then multiplied by a hundredth of the down-pull multiplier.
 
 **Encumbrance Percentage**: the actor's encumbrance percentage (carrying 120 of 300 = 40% or 0.4) is multiplied by triple the down-pull multiplier.
 

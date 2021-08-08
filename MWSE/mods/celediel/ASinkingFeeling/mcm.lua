@@ -25,8 +25,7 @@ category:createDropdown({
         "Equipped Armour: Actors are pulled down by their combined armour class (Light = 1, Medium = 2, Heavy = 3), " ..
         "multiplied by a tenth of the down-pull multiplier. Default of 100 makes it impossible to surface in all heavy armour for all but the most Athletic.\n\n" ..
         "Equipment weight: Actors are pulled down by double the weight of all equipped gear multiplied by a hundredth of the down-pull multiplier.\n\n" ..
-        "Encumbrance: Actors are pulled down by their encumbrance percentage multiplied by triple the down-pull multiplier.\n\n" ..
-        "What is dead may never die.",
+        "Encumbrance: Actors are pulled down by their encumbrance percentage multiplied by triple the down-pull multiplier.\n\n",
     options = {
         { label = "Equipped Armour", value = common.modes.equippedArmour },
         { label = "All Equipment", value = common.modes.allEquipment },

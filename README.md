@@ -8,7 +8,7 @@
 >thought. _They still fear drowning._
 >- _George R.R. Martin - A Feast for Crows_
 
-No longer can you swim in heavy plate; now your armour, equipment, or items drag you down while swimming. Options exist for formulas
+No longer can you swim in heavy plate; now your armour, equipment, or carried items drag you down while swimming. Options exist for formulas
 based on equipped armour weight class, total equipment weight, or encumbrance percentage.
 
 Enable debug logging, and check MWSE for the exact values being used.

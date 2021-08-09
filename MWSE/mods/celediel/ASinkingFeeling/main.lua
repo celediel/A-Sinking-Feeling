@@ -45,6 +45,9 @@ local function sinkInWater(e)
     -- no creatures
     if mobile.actorType == tes3.actorType.creature then return end
 
+    -- if configured to be player only, bail if not player
+    if config.playerOnly and mobile.actorType ~= tes3.actorType.player then return end
+
     local downPull = 0
 
     -- calculate the down-pull with the configured formula

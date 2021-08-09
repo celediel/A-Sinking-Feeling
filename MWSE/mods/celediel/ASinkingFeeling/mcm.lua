@@ -19,6 +19,12 @@ category:createYesNoButton({
     variable = createTableVar("enabled")
 })
 
+category:createYesNoButton({
+    label = "Player-only",
+    description = "The mod only affects the player, not other actors.",
+    variable = createTableVar("playerOnly")
+})
+
 category:createDropdown({
     label = "Down-pull formula",
     description = "Formula used to calculate down-pull amount.\n\nOptions are: Equipped Armour, Equipment Weight, Encumbrance\n\n" ..

@@ -33,6 +33,10 @@ Enable debug logging, and check MWSE for the exact values being used.
 ## Requirements ##
 MGE XE with MWSE @ [Nexus Mods](https://www.nexusmods.com/morrowind/mods/41102) \(Make sure you run MWSE-Update.exe\)
 
+## Incompatibilites ##
+
+* OperatorJack's [Better Buoyancy](https://www.nexusmods.com/morrowind/mods/48929) or at least the swimming controls part.
+
 ## Credits ##
 
 * MWSE Team for MWSE with Lua support

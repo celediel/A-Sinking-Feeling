@@ -41,6 +41,8 @@ local function sinkInWater(e)
     local mobile = e.mobile
     local ref = e.reference
     local actor = ref.object
+    local waterLevel = mobile.cell.waterLevel
+    local headHeight = mobile.position.z + mobile.height * 0.8
 
     -- no creatures
     if mobile.actorType == tes3.actorType.creature then return end
@@ -73,11 +75,20 @@ local function sinkInWater(e)
             ref.id, downPull, encumbrance.current, encumbrance.base, encumbrance.normalized)
     end
 
-    -- finally add down-pull from configured formula to tes3.mobilePlayer.velocity.z to simulate being pulled down
-    if downPull ~= 0 then
-        mobile.velocity.z = -downPull
-        if config.debug then
-            common.log(debugStr)
+    -- reset if levitating
+    if mobile.levitate > 0 then downPull = 0 end
+
+    -- only if mostly underwater to stop pseudo-waterwalking when jumping into water
+    if headHeight <= waterLevel then
+        if downPull ~= 0 then
+            -- finally add down-pull from configured formula to tes3.mobilePlayer.velocity.z to simulate being pulled down
+            mobile.velocity.z = -downPull
+            if config.debug then
+                common.log(debugStr)
+            end
+        elseif mobile.velocity.z <= 0 then
+            -- reset velocity removing of armour in water is accounted for
+            mobile.velocity.z = 0
         end
     end
 end

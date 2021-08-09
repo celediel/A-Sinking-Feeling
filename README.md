@@ -35,7 +35,9 @@ MGE XE with MWSE @ [Nexus Mods](https://www.nexusmods.com/morrowind/mods/41102) 
 
 ## Incompatibilites ##
 
-* OperatorJack's [Better Buoyancy](https://www.nexusmods.com/morrowind/mods/48929) or at least the swimming controls part.
+* The swimming controls part of OperatorJack's [Better Buoyancy](https://www.nexusmods.com/morrowind/mods/48929) is partially incompatible.
+If the actor is unarmoured, or unencumbered with that option enabled, Better Buoyancy will work as expected. Otherwise, if this mod is affecting
+the actor's velocity, Better Buoyancy will not function. Better Buoyancy's levitation controls are also unaffected.
 
 ## Credits ##
 

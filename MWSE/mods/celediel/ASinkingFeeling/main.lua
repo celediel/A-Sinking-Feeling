@@ -49,37 +49,37 @@ local function sinkInWater(e)
     if config.playerOnly and mobile.actorType ~= tes3.actorType.player then return end
 
     local downPull = 0
+    local debugStr = ""
 
     -- calculate the down-pull with the configured formula
     if config.mode == common.modes.equippedArmour then
         local armourClass = getTotalArmourClass(actor)
         downPull = (config.downPullMultiplier / 10) * armourClass
-        if config.debug then
-            common.log("Pulling %s down by %s using equipped armour mode (%s total armour class)",
-                ref.id, downPull, armourClass)
-        end
+        debugStr = string.format("Pulling %s down by %s using equipped armour mode (%s total armour class)",
+            ref.id, downPull, armourClass)
 
     elseif config.mode == common.modes.allEquipment then
         local totalWeight = getTotalEquipmentWeight(actor)
         -- doubling this keeps this formula somewhat uniform with armour class @ multiplier 100
         downPull = ((config.downPullMultiplier / 100) * totalWeight) * 2
-        if config.debug then
-            common.log("Pulling %s down by %s using equipment weight mode (%s total equipment weight)",
-                ref.id, downPull, totalWeight)
-        end
+        debugStr = string.format("Pulling %s down by %s using equipment weight mode (%s total equipment weight)",
+            ref.id, downPull, totalWeight)
 
     elseif config.mode == common.modes.encumbrancePercentage then
         local encumbrance = mobile.encumbrance
         -- tripling this keeps this formula somewhat uniform with armour class @ multiplier 100
         downPull = (config.downPullMultiplier * encumbrance.normalized) * 3
-        if config.debug then
-            common.log("Pulling %s down by %s using encumbrance mode (%s/%s = %s encumbrance)",
-                ref.id, downPull, encumbrance.current, encumbrance.base, encumbrance.normalized)
-        end
+        debugStr = string.format("Pulling %s down by %s using encumbrance mode (%s/%s = %s encumbrance)",
+            ref.id, downPull, encumbrance.current, encumbrance.base, encumbrance.normalized)
     end
 
     -- finally add down-pull from configured formula to tes3.mobilePlayer.velocity.z to simulate being pulled down
-    if downPull ~= 0 then mobile.velocity.z = -downPull end
+    if downPull ~= 0 then
+        mobile.velocity.z = -downPull
+        if config.debug then
+            common.log(debugStr)
+        end
+    end
 end
 
 local function onInitialized()

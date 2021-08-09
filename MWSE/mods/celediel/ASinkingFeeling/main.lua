@@ -79,7 +79,7 @@ local function sinkInWater(e)
     end
 
     -- finally add down-pull from configured formula to tes3.mobilePlayer.velocity.z to simulate being pulled down
-    mobile.velocity.z = -downPull
+    if downPull ~= 0 then mobile.velocity.z = -downPull end
 end
 
 local function onInitialized()

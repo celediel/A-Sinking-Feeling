@@ -34,9 +34,6 @@ end
 
 -- Event functions
 local function sinkInWater(e)
-    -- don't even calculate anything if disabled
-    if not config.enabled then return end
-
     -- shortcut refs
     local mobile = e.mobile
     local ref = e.reference
@@ -75,8 +72,8 @@ local function sinkInWater(e)
             ref.id, downPull, encumbrance.current, encumbrance.base, encumbrance.normalized)
     end
 
-    -- reset if levitating
-    if mobile.levitate > 0 then downPull = 0 end
+    -- reset if levitating or mod disabled
+    if mobile.levitate > 0 or not config.enabled then downPull = 0 end
 
     -- only if mostly underwater to stop pseudo-waterwalking when jumping into water
     if headHeight <= waterLevel then

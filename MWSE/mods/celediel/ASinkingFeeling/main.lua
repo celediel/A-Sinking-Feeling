@@ -50,8 +50,11 @@ local function sinkInWater(e)
     local downPull = 0
     local debugStr = ""
 
+    -- don't calculate if disabled
+    if not config.enabled then
+        downPull = 0
     -- calculate the down-pull with the configured formula
-    if config.mode == common.modes.equippedArmour then
+    elseif config.mode == common.modes.equippedArmour then
         local armourClass = getTotalArmourClass(actor)
         downPull = (config.downPullMultiplier / 10) * armourClass
         debugStr = string.format("Pulling %s down by %s using equipped armour mode (%s total armour class)",
@@ -72,8 +75,8 @@ local function sinkInWater(e)
             ref.id, downPull, encumbrance.current, encumbrance.base, encumbrance.normalized)
     end
 
-    -- reset if levitating or mod disabled
-    if mobile.levitate > 0 or not config.enabled then downPull = 0 end
+    -- reset if levitating
+    if mobile.levitate > 0 then downPull = 0 end
 
     -- only if mostly underwater to stop pseudo-waterwalking when jumping into water
     if headHeight <= waterLevel then

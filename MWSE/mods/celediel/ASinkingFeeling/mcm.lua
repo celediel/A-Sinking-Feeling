@@ -1,7 +1,30 @@
 local common = require("celediel.ASinkingFeeling.common")
 local config = require("celediel.ASinkingFeeling.config")
 
+local function camelCaseToWords(str)
+    local function spaceBefore(word)
+        return " " .. word
+    end
+
+    local function titleCase(first, rest)
+        return first:upper() .. rest:lower()
+    end
+
+    local words = str:gsub("%u", spaceBefore)
+    return words:gsub("(%a)([%w_']*)", titleCase)
+end
+
 local function createTableVar(id) return mwse.mcm.createTableVariable {id = id, table = config} end
+
+local function createOptions()
+    local options = {}
+
+    for mode, i in pairs(common.modes) do
+        options[#options+1] = {label = camelCaseToWords(mode), value = i}
+    end
+
+    return options
+end
 
 local template = mwse.mcm.createTemplate(common.modName)
 template:saveOnClose(common.configString, config)
@@ -32,11 +55,7 @@ category:createDropdown({
         "multiplied by a tenth of the down-pull multiplier. Default of 100 makes it impossible to surface in all heavy armour for all but the most Athletic.\n\n" ..
         "Equipment weight: Actors are pulled down by double the weight of all equipped gear multiplied by a hundredth of the down-pull multiplier.\n\n" ..
         "Encumbrance: Actors are pulled down by their encumbrance percentage multiplied by triple the down-pull multiplier.\n\n",
-    options = {
-        { label = "Equipped Armour", value = common.modes.equippedArmour },
-        { label = "All Equipment", value = common.modes.allEquipment },
-        { label = "Encumbrance", value = common.modes.encumbrancePercentage }
-    },
+    options = createOptions(),
     variable = createTableVar("mode")
 })
 

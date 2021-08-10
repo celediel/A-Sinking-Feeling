@@ -67,6 +67,16 @@ local function sinkInWater(e)
         debugStr = string.format("Pulling %s down by %s using equipment weight mode (%s total equipment weight)",
             ref.id, downPull, totalWeight)
 
+    elseif config.mode == common.modes.allEquipmentNecroEdit then
+        local totalWeight = getTotalEquipmentWeight(actor)
+        -- Thanks Necrolesian for this formula
+        -- https://forums.nexusmods.com/index.php?/topic/10349253-a-sinking-feeling/page-2#entry97870268
+        local term1 = ((config.downPullMultiplier / 100) * totalWeight) * 2
+        local term2 = ((config.downPullMultiplier / 100) * (totalWeight - 135) * 0.2) + 270
+        downPull = math.min(term1, term2)
+        debugStr = string.format("Pulling %s down by %s (instead of %s) using equipment weight mode (necro edit) (%s total equipment weight)",
+            ref.id, downPull, math.max(term1, term2), totalWeight)
+
     elseif config.mode == common.modes.encumbrancePercentage then
         local encumbrance = mobile.encumbrance
         -- tripling this keeps this formula somewhat uniform with armour class @ multiplier 100

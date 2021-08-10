@@ -7,7 +7,7 @@ this.modInfo = "No longer can you swim in heavy plate; now your armour, equipmen
 	"What is dead may never die."
 this.version = "1.0.4"
 this.configString = string.gsub(this.modName, "%s+", "")
-this.modes = {equippedArmour = 0, allEquipment = 1, encumbrancePercentage = 2}
+this.modes = {equippedArmour = 0, allEquipment = 1, encumbrancePercentage = 2, allEquipmentNecroEdit = 3}
 this.log = function(...) mwse.log("[%s] %s", this.modName, string.format(...)) end
 
 return this

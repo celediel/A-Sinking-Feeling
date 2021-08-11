@@ -37,7 +37,7 @@ local formulas = {}
 
 formulas.equippedArmour = function(actor, ref)
     local armourClass = getTotalArmourClass(actor)
-    local downPull = (config.downPullMultiplier / 10) * armourClass
+    local downPull = (config.multipliers.equippedArmour / 10) * armourClass
     local debugStr = string.format("Pulling %s down by %s using equipped armour mode (%s total armour class)",
         ref.id, downPull, armourClass)
     return downPull, debugStr
@@ -46,7 +46,7 @@ end
 formulas.allEquipment = function(actor, ref)
     local totalWeight = getTotalEquipmentWeight(actor)
     -- doubling this keeps this formula somewhat uniform with armour class @ multiplier 100
-    local downPull = ((config.downPullMultiplier / 100) * totalWeight) * 2
+    local downPull = ((config.multipliers.allEquipment / 100) * totalWeight) * 2
     local debugStr = string.format("Pulling %s down by %s using equipment weight mode (%s total equipment weight)",
         ref.id, downPull, totalWeight)
     return downPull, debugStr
@@ -56,8 +56,8 @@ formulas.allEquipmentNecroEdit = function(actor, ref)
     local totalWeight = getTotalEquipmentWeight(actor)
     -- Thanks Necrolesian for this formula
     -- https://forums.nexusmods.com/index.php?/topic/10349253-a-sinking-feeling/page-2#entry97870268
-    local term1 = ((config.downPullMultiplier / 100) * totalWeight) * 2
-    local term2 = ((config.downPullMultiplier / 100) * (totalWeight - 135) * 0.2) + 270
+    local term1 = ((config.multipliers.allEquipment / 100) * totalWeight) * 2
+    local term2 = ((config.multipliers.allEquipment / 100) * (totalWeight - 135) * 0.2) + 270
     local downPull = math.min(term1, term2)
     local debugStr = string.format("Pulling %s down by %s (instead of %s) using equipment weight mode (necro edit) (%s total equipment weight)",
         ref.id, downPull, math.max(term1, term2), totalWeight)
@@ -67,7 +67,7 @@ end
 formulas.encumbrancePercentage = function(mobile, ref)
     local encumbrance = mobile.encumbrance
     -- tripling this keeps this formula somewhat uniform with armour class @ multiplier 100
-    local downPull = (config.downPullMultiplier * encumbrance.normalized) * 3
+    local downPull = (config.multipliers.encumbrancePercentage * encumbrance.normalized) * 3
     local debugStr = string.format("Pulling %s down by %s using encumbrance mode (%s/%s = %s encumbrance)",
         ref.id, downPull, encumbrance.current, encumbrance.base, encumbrance.normalized)
     return downPull, debugStr

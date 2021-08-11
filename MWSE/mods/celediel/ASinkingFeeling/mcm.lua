@@ -1,7 +1,7 @@
 local common = require("celediel.ASinkingFeeling.common")
 local config = require("celediel.ASinkingFeeling.config")
 
-local function createTableVar(id) return mwse.mcm.createTableVariable {id = id, table = config} end
+local function createTableVar(id) return mwse.mcm.createTableVariable({id = id, table = config}) end
 
 local function createDescriptions()
     local description = "Formula used to calculate down-pull amount.\n\nOptions are: "
@@ -65,15 +65,18 @@ category:createDropdown({
     variable = createTableVar("mode")
 })
 
-category:createSlider({
-    label = "Down-pull multiplier",
-    description = "Multiplier used in the selected formula.\n\nDefault value of 100 acts similarly in all formulas.",
-    variable = createTableVar("downPullMultiplier"),
-    min = 0,
-    max = 300,
-    step = 1,
-    jump = 10
-})
+for name, _ in pairs(config.multipliers) do
+    local title = common.camelCaseToWords(name)
+    category:createSlider({
+        label = title .. " multiplier",
+        description = "Multiplier used for " .. title .." formula. Default value: 100",
+        variable = mwse.mcm.createTableVariable({id = name, table = config.multipliers}),
+        min = 0,
+        max = 300,
+        step = 1,
+        jump = 10
+    })
+end
 
 category:createYesNoButton({
     label = "Debug logging",

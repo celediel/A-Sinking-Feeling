@@ -1,26 +1,36 @@
 local common = require("celediel.ASinkingFeeling.common")
 local config = require("celediel.ASinkingFeeling.config")
 
-local function camelCaseToWords(str)
-    local function spaceBefore(word)
-        return " " .. word
-    end
-
-    local function titleCase(first, rest)
-        return first:upper() .. rest:lower()
-    end
-
-    local words = str:gsub("%u", spaceBefore)
-    return words:gsub("(%a)([%w_']*)", titleCase)
-end
-
 local function createTableVar(id) return mwse.mcm.createTableVariable {id = id, table = config} end
+
+local function createDescriptions()
+    local description = "Formula used to calculate down-pull amount.\n\nOptions are: "
+    local options = ""
+
+    -- list all current modes
+    for mode, _ in pairs(common.modes) do
+        options = options .. common.camelCaseToWords(mode) .. ", "
+    end
+
+    -- strip off ending ", "
+    options = options:sub(1, string.len(options) - 2)
+
+    -- add modes to description
+    description = description .. options
+
+    -- add descriptions to description
+    for mode, t in pairs(common.modes) do
+        description = description .. "\n\n" .. common.camelCaseToWords(mode) .. ": " .. t.description
+    end
+
+    return description
+end
 
 local function createOptions()
     local options = {}
 
-    for mode, i in pairs(common.modes) do
-        options[#options+1] = {label = camelCaseToWords(mode), value = i}
+    for mode, t in pairs(common.modes) do
+        options[#options+1] = {label = common.camelCaseToWords(mode), value = t.value}
     end
 
     return options
@@ -50,11 +60,7 @@ category:createYesNoButton({
 
 category:createDropdown({
     label = "Down-pull formula",
-    description = "Formula used to calculate down-pull amount.\n\nOptions are: Equipped Armour, Equipment Weight, Encumbrance\n\n" ..
-        "Equipped Armour: Actors are pulled down by their combined armour class (Light = 1, Medium = 2, Heavy = 3), " ..
-        "multiplied by a tenth of the down-pull multiplier. Default of 100 makes it impossible to surface in all heavy armour for all but the most Athletic.\n\n" ..
-        "Equipment weight: Actors are pulled down by double the weight of all equipped gear multiplied by a hundredth of the down-pull multiplier.\n\n" ..
-        "Encumbrance: Actors are pulled down by their encumbrance percentage multiplied by triple the down-pull multiplier.\n\n",
+    description = createDescriptions(),
     options = createOptions(),
     variable = createTableVar("mode")
 })

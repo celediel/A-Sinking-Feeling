@@ -32,6 +32,66 @@ local function getTotalEquipmentWeight(actor)
     return weight
 end
 
+-- Formula functions
+local formulas = {}
+
+formulas.equippedArmour = function(actor, ref)
+    local armourClass = getTotalArmourClass(actor)
+    local downPull = (config.downPullMultiplier / 10) * armourClass
+    local debugStr = string.format("Pulling %s down by %s using equipped armour mode (%s total armour class)",
+        ref.id, downPull, armourClass)
+    return downPull, debugStr
+end
+
+formulas.allEquipment = function(actor, ref)
+    local totalWeight = getTotalEquipmentWeight(actor)
+    -- doubling this keeps this formula somewhat uniform with armour class @ multiplier 100
+    local downPull = ((config.downPullMultiplier / 100) * totalWeight) * 2
+    local debugStr = string.format("Pulling %s down by %s using equipment weight mode (%s total equipment weight)",
+        ref.id, downPull, totalWeight)
+    return downPull, debugStr
+end
+
+formulas.allEquipmentNecroEdit = function(actor, ref)
+    local totalWeight = getTotalEquipmentWeight(actor)
+    -- Thanks Necrolesian for this formula
+    -- https://forums.nexusmods.com/index.php?/topic/10349253-a-sinking-feeling/page-2#entry97870268
+    local term1 = ((config.downPullMultiplier / 100) * totalWeight) * 2
+    local term2 = ((config.downPullMultiplier / 100) * (totalWeight - 135) * 0.2) + 270
+    local downPull = math.min(term1, term2)
+    local debugStr = string.format("Pulling %s down by %s (instead of %s) using equipment weight mode (necro edit) (%s total equipment weight)",
+        ref.id, downPull, math.max(term1, term2), totalWeight)
+    return downPull, debugStr
+end
+
+formulas.encumbrancePercentage = function(mobile, ref)
+    local encumbrance = mobile.encumbrance
+    -- tripling this keeps this formula somewhat uniform with armour class @ multiplier 100
+    local downPull = (config.downPullMultiplier * encumbrance.normalized) * 3
+    local debugStr = string.format("Pulling %s down by %s using encumbrance mode (%s/%s = %s encumbrance)",
+        ref.id, downPull, encumbrance.current, encumbrance.base, encumbrance.normalized)
+    return downPull, debugStr
+end
+
+formulas.worstCaseScenario = function(actor, mobile, ref)
+    local downPull = 0
+
+    local results = {}
+    -- todo: maybe loop over formulas to calculate each instead of this
+    -- different formulas needing different actor/mobile might make it too unwieldy though
+    results.equippedArmour = formulas.equippedArmour(actor, ref)
+    results.allEquipment = formulas.allEquipment(actor, ref)
+    results.allEquipmentNecroEdit = formulas.allEquipmentNecroEdit(actor, ref)
+    results.encumbrancePercentage = formulas.encumbrancePercentage(mobile, ref)
+
+    local largest = common.keyOfLargestValue(results)
+    downPull = results[largest]
+
+    local debugStr = string.format("Pulling %s down by %s using worst mode:%s", ref.id, downPull, common.camelCaseToWords(largest))
+
+    return downPull, debugStr
+end
+
 -- Event functions
 local function sinkInWater(e)
     -- shortcut refs
@@ -54,35 +114,16 @@ local function sinkInWater(e)
     if not config.enabled then
         downPull = 0
     -- calculate the down-pull with the configured formula
-    elseif config.mode == common.modes.equippedArmour then
-        local armourClass = getTotalArmourClass(actor)
-        downPull = (config.downPullMultiplier / 10) * armourClass
-        debugStr = string.format("Pulling %s down by %s using equipped armour mode (%s total armour class)",
-            ref.id, downPull, armourClass)
-
-    elseif config.mode == common.modes.allEquipment then
-        local totalWeight = getTotalEquipmentWeight(actor)
-        -- doubling this keeps this formula somewhat uniform with armour class @ multiplier 100
-        downPull = ((config.downPullMultiplier / 100) * totalWeight) * 2
-        debugStr = string.format("Pulling %s down by %s using equipment weight mode (%s total equipment weight)",
-            ref.id, downPull, totalWeight)
-
-    elseif config.mode == common.modes.allEquipmentNecroEdit then
-        local totalWeight = getTotalEquipmentWeight(actor)
-        -- Thanks Necrolesian for this formula
-        -- https://forums.nexusmods.com/index.php?/topic/10349253-a-sinking-feeling/page-2#entry97870268
-        local term1 = ((config.downPullMultiplier / 100) * totalWeight) * 2
-        local term2 = ((config.downPullMultiplier / 100) * (totalWeight - 135) * 0.2) + 270
-        downPull = math.min(term1, term2)
-        debugStr = string.format("Pulling %s down by %s (instead of %s) using equipment weight mode (necro edit) (%s total equipment weight)",
-            ref.id, downPull, math.max(term1, term2), totalWeight)
-
-    elseif config.mode == common.modes.encumbrancePercentage then
-        local encumbrance = mobile.encumbrance
-        -- tripling this keeps this formula somewhat uniform with armour class @ multiplier 100
-        downPull = (config.downPullMultiplier * encumbrance.normalized) * 3
-        debugStr = string.format("Pulling %s down by %s using encumbrance mode (%s/%s = %s encumbrance)",
-            ref.id, downPull, encumbrance.current, encumbrance.base, encumbrance.normalized)
+    elseif config.mode == common.modes.equippedArmour.value then
+        downPull, debugStr = formulas.equippedArmour(actor, ref)
+    elseif config.mode == common.modes.allEquipment.value then
+        downPull, debugStr = formulas.allEquipment(actor, ref)
+    elseif config.mode == common.modes.allEquipmentNecroEdit.value then
+        downPull, debugStr = formulas.allEquipmentNecroEdit(actor, ref)
+    elseif config.mode == common.modes.encumbrancePercentage.value then
+        downPull, debugStr = formulas.encumbrancePercentage(mobile, ref)
+    elseif config.mode == common.modes.worstCaseScenario.value then
+        downPull, debugStr = formulas.worstCaseScenario(actor, mobile, ref)
     end
 
     -- reset if levitating

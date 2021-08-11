@@ -1,4 +1,4 @@
-local config = require("celediel.ASinkingFeeling.config")
+local config = require("celediel.ASinkingFeeling.config").getConfig()
 local common = require("celediel.ASinkingFeeling.common")
 
 -- Helper Functions

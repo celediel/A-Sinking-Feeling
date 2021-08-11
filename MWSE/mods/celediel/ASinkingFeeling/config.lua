@@ -1,6 +1,8 @@
 local common = require("celediel.ASinkingFeeling.common")
 
-local defaultConfig = {
+local this = {}
+
+this.defaultConfig = {
 	enabled = true,
 	debug = false,
 	playerOnly = false,
@@ -12,6 +14,11 @@ local defaultConfig = {
 	mode = common.modes.equippedArmour.value
 }
 
-local config = mwse.loadConfig(common.configString, defaultConfig)
+local currentConfig
 
-return config
+this.getConfig = function()
+	currentConfig = currentConfig or mwse.loadConfig(common.configString, this.defaultConfig)
+	return currentConfig
+end
+
+return this

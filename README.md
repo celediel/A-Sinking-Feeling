@@ -40,8 +40,8 @@ Enable debug logging, and check MWSE.log for the exact values being used.
 MGE XE with MWSE @ [Nexus Mods](https://www.nexusmods.com/morrowind/mods/41102) \(Make sure you run MWSE-Update.exe\)
 
 ## Recommended Mods ##
-* [Hold Your Breath](https://www.nexusmods.com/morrowind/mods/48872) by Stripes - Endurance determines how long you can hold your breath under water.
-* Any mod that enables constant waterbreathing for Argonian races.
+* [Hold Your Breath](https://www.nexusmods.com/morrowind/mods/48872) by Stripes - Endurance determines how long you can hold your breath underwater.
+* Any mod that enables constant water-breathing for Argonian races.
 	* The no frills [Constant Argonian Water Breathing](https://www.nexusmods.com/morrowind/mods/15193) by Sir Pyrantus
 	* [Balanced Passive Races and Birthsigns](https://www.nexusmods.com/morrowind/mods/47782) by BTB + Necrolesian, or the [edit by RandomPal](https://www.nexusmods.com/morrowind/mods/48683)
 * [Water Life](https://www.nexusmods.com/morrowind/mods/42417) by abot - see pretty fishes while you drown

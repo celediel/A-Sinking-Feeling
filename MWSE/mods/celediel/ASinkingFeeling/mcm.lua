@@ -66,6 +66,16 @@ category:createDropdown({
     variable = createTableVar("mode")
 })
 
+category:createDropdown({
+    label = "Worst Case Scenario All Equipment variety",
+    description = "Chooses which variety of the All Equipment formula is used when Worst Case Scenario is selected",
+    options = {
+        { label = "Original Formula", value = false },
+        { label = "Necro Edit", value = true }
+    },
+    variable = createTableVar("allEquipmentWorstCaseNecroMode")
+})
+
 for name, _ in pairs(config.defaultConfig.multipliers) do
     local title = common.camelCaseToWords(name)
     category:createSlider({

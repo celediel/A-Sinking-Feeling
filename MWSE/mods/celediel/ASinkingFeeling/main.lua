@@ -81,8 +81,11 @@ formulas.worstCaseScenario = function(actor, mobile, ref)
     -- different formulas needing different actor/mobile might make it too unwieldy though
     results.equippedArmour = formulas.equippedArmour(actor, ref)
     results.allEquipment = formulas.allEquipment(actor, ref)
-    results.allEquipmentNecroEdit = formulas.allEquipmentNecroEdit(actor, ref)
-    results.encumbrancePercentage = formulas.encumbrancePercentage(mobile, ref)
+    if config.allEquipmentWorstCaseNecroMode then
+        results.allEquipmentNecroEdit = formulas.allEquipmentNecroEdit(actor, ref)
+    else
+        results.encumbrancePercentage = formulas.encumbrancePercentage(mobile, ref)
+    end
 
     local largest = common.keyOfLargestValue(results)
     downPull = results[largest]

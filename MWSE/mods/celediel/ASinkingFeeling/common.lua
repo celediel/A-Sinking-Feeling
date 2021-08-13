@@ -23,7 +23,7 @@ this.modes = {
 	},
 	allEquipmentNecroEdit = {
 		value = 3,
-		description = "Actors are pulled down by their encumbrance percentage multiplied by triple the down-pull multiplier, " ..
+		description = "Actors are pulled down by double the weight of all equipped gear multiplied by a hundredth of the down-pull multiplier, " ..
 		"except any weight above 135 only counts 10%. Lessens the gap between the lightest and heaviest heavy armours.",
 	},
 	worstCaseScenario = {

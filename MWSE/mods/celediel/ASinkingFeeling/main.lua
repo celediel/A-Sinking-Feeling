@@ -125,18 +125,6 @@ local function sinkInWater(e)
                 break
             end
         end
-    --[[
-    elseif config.mode == common.modes.equippedArmour.value then
-        downPull, debugStr = formulas.equippedArmour(actor, ref)
-    elseif config.mode == common.modes.allEquipment.value then
-        downPull, debugStr = formulas.allEquipment(actor, ref)
-    elseif config.mode == common.modes.allEquipmentNecroEdit.value then
-        downPull, debugStr = formulas.allEquipmentNecroEdit(actor, ref)
-    elseif config.mode == common.modes.encumbrancePercentage.value then
-        downPull, debugStr = formulas.encumbrancePercentage(mobile, ref)
-    elseif config.mode == common.modes.worstCaseScenario.value then
-        downPull, debugStr = formulas.worstCaseScenario(actor, mobile, ref)
-    --]]
     end
 
     -- reset if levitating

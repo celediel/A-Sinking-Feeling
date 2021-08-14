@@ -1,4 +1,5 @@
-local config = require("celediel.ASinkingFeeling.config").getConfig()
+local bigConf = require("celediel.ASinkingFeeling.config")
+local config = bigConf.getConfig()
 local common = require("celediel.ASinkingFeeling.common")
 
 -- Helper Functions
@@ -165,6 +166,7 @@ end
 
 local function onInitialized()
     event.register("calcSwimSpeed", sinkInWater)
+    config = bigConf.resetDefaults(config)
     common.log("Successfully initialized!")
 end
 

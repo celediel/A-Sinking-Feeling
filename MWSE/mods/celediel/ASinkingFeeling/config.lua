@@ -17,6 +17,19 @@ this.defaultConfig = {
 
 local currentConfig
 
+this.resetDefaults = function(config)
+	local resetConfig = {}
+	for k, v in pairs(config) do
+		-- ensure types are consistent, or reset to default
+		if type(v) == type(this.defaultConfig[k]) then
+			resetConfig[k] = config[k]
+		else
+			resetConfig[k] = this.defaultConfig[k]
+		end
+	end
+	return resetConfig
+end
+
 this.getConfig = function()
 	currentConfig = currentConfig or mwse.loadConfig(common.configString, this.defaultConfig)
 	return currentConfig

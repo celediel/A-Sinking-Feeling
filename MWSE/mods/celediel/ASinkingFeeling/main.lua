@@ -35,6 +35,24 @@ end
 -- Formula functions
 local formulas = {}
 
+-- Formula helper
+local function calculateAll(actor, mobile, ref)
+    local results = {}
+
+    for mode, func in pairs(formulas) do
+        -- don't go recursive
+        if not string.find(mode, "CaseScenario") then
+            -- sometimes I really wish lua had continue -_-
+            if (config.caseScenarioNecroMode and mode ~= "allEquipment") or
+               (not config.caseScenarioNecroMode and mode ~= "allEquipmentNecroEdit") then
+                results[mode] = func(actor, mobile, ref)
+            end
+        end
+    end
+
+    return results
+end
+
 formulas.equippedArmour = function(actor, mobile, ref)
     local armourClass = getTotalArmourClass(actor)
     local downPull = (config.multipliers.equippedArmour / 10) * armourClass
@@ -76,22 +94,25 @@ end
 formulas.worstCaseScenario = function(actor, mobile, ref)
     local downPull = 0
 
-    local results = {}
-    for mode, func in pairs(formulas) do
-        -- don't go recursive
-        if mode ~= "worstCaseScenario" then
-            -- sometimes I really wish lua had continue -_-
-            if (config.allEquipmentWorstCaseNecroMode and mode ~= "allEquipment") or
-               (not config.allEquipmentWorstCaseNecroMode and mode ~= "allEquipmentNecroEdit") then
-                results[mode] = func(actor, mobile, ref)
-            end
-        end
-    end
+    local results = calculateAll(actor, mobile, ref)
 
     local largest = common.keyOfLargestValue(results)
     downPull = results[largest]
 
     local debugStr = string.format("Pulling %s down by %s using worst mode:%s", ref.id, downPull, common.camelCaseToWords(largest))
+
+    return downPull, debugStr
+end
+
+formulas.bestCaseScenario = function(actor, mobile, ref)
+    local downPull = 0
+
+    local results = calculateAll(actor, mobile, ref)
+
+    local smallest = common.keyOfSmallestValue(results)
+    downPull = results[smallest]
+
+    local debugStr = string.format("Pulling %s down by %s using best mode:%s", ref.id, downPull, common.camelCaseToWords(smallest))
 
     return downPull, debugStr
 end

@@ -29,6 +29,10 @@ this.modes = {
 	{
 		mode = "worstCaseScenario",
 		description = "Calculates results from all formulas, and uses the highest value.",
+	},
+	{
+		mode = "bestCaseScenario",
+		description = "Calculates results from all formulas, and uses the lowest value.",
 	}
 }
 
@@ -54,6 +58,19 @@ this.keyOfLargestValue = function(t)
     for key, value in pairs(t) do
         if value > largest then
             largest = value
+            picked = key
+        end
+    end
+    return picked
+end
+
+-- picks the key of the smallest value out of a key:whatever, value:number table
+this.keyOfSmallestValue = function(t)
+    local picked
+    local smallest = math.huge
+    for key, value in pairs(t) do
+        if value < smallest then
+            smallest = value
             picked = key
         end
     end

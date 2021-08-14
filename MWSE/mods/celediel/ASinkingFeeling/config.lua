@@ -12,7 +12,7 @@ this.defaultConfig = {
 		encumbrancePercentage = 100
 	},
 	mode = common.modes[1].mode,
-	allEquipmentWorstCaseNecroMode = true
+	caseScenarioNecroMode = true
 }
 
 local currentConfig

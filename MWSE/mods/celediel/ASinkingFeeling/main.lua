@@ -135,11 +135,8 @@ local function sinkInWater(e)
     local downPull = 0
     local debugStr = ""
 
-    -- don't calculate if disabled
-    if not config.enabled then
-        downPull = 0
-    -- calculate the down-pull with the configured formula
-    else
+    -- calculate the down-pull with the configured formula if enabled
+    if config.enabled then
         for _, t in ipairs(common.modes) do
             if t.mode == config.mode then
                 downPull, debugStr = formulas[t.mode](actor, mobile, ref)

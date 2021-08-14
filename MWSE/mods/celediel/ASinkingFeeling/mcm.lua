@@ -1,8 +1,8 @@
 local common = require("celediel.ASinkingFeeling.common")
-local config = require("celediel.ASinkingFeeling.config")
-local currentConfig = config.getConfig()
+local bigConf = require("celediel.ASinkingFeeling.config")
+local config = bigConf.getConfig()
 
-local function createTableVar(id) return mwse.mcm.createTableVariable({id = id, table = currentConfig}) end
+local function createTableVar(id) return mwse.mcm.createTableVariable({id = id, table = config}) end
 
 local function createDescriptions()
     local description = "Formula used to calculate down-pull amount.\n\nOptions are: "
@@ -38,7 +38,7 @@ local function createOptions()
 end
 
 local template = mwse.mcm.createTemplate(common.modName)
-template:saveOnClose(common.configString, currentConfig)
+template:saveOnClose(common.configString, config)
 
 local page = template:createSideBarPage({
     label = "Sidebar Page???",
@@ -76,12 +76,12 @@ category:createDropdown({
     variable = createTableVar("caseScenarioNecroMode")
 })
 
-for name, _ in pairs(config.defaultConfig.multipliers) do
+for name, _ in pairs(bigConf.defaultConfig.multipliers) do
     local title = common.camelCaseToWords(name)
     category:createSlider({
         label = title .. " multiplier",
-        description = "Multiplier used for " .. title .." formula. Default value: " .. config.defaultConfig.multipliers[name],
-        variable = mwse.mcm.createTableVariable({id = name, table = currentConfig.multipliers}),
+        description = "Multiplier used for " .. title .." formula. Default value: " .. bigConf.defaultConfig.multipliers[name],
+        variable = mwse.mcm.createTableVariable({id = name, table = config.multipliers}),
         min = 0,
         max = 300,
         step = 1,

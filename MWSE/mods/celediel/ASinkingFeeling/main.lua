@@ -120,7 +120,7 @@ local function sinkInWater(e)
     -- calculate the down-pull with the configured formula
     else
         for _, t in ipairs(common.modes) do
-            if t.value == config.mode then
+            if t.mode == config.mode then
                 downPull, debugStr = formulas[t.mode](actor, mobile, ref)
                 break
             end

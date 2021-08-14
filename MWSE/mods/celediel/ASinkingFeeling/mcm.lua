@@ -31,7 +31,7 @@ local function createOptions()
     local options = {}
 
     for _, t in ipairs(common.modes) do
-        options[#options+1] = {label = common.camelCaseToWords(t.mode), value = t.value}
+        options[#options+1] = {label = common.camelCaseToWords(t.mode), value = t.mode}
     end
 
     return options

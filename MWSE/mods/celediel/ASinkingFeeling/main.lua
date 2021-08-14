@@ -94,27 +94,19 @@ end
 
 formulas.worstCaseScenario = function(actor, mobile, ref)
     local downPull = 0
-
     local results = calculateAll(actor, mobile, ref)
-
     local largest = common.keyOfLargestValue(results)
     downPull = results[largest]
-
     local debugStr = string.format("Pulling %s down by %s using worst mode:%s", ref.id, downPull, common.camelCaseToWords(largest))
-
     return downPull, debugStr
 end
 
 formulas.bestCaseScenario = function(actor, mobile, ref)
     local downPull = 0
-
     local results = calculateAll(actor, mobile, ref)
-
     local smallest = common.keyOfSmallestValue(results)
     downPull = results[smallest]
-
     local debugStr = string.format("Pulling %s down by %s using best mode:%s", ref.id, downPull, common.camelCaseToWords(smallest))
-
     return downPull, debugStr
 end
 

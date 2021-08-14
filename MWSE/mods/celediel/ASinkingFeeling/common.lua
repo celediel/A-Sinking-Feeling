@@ -8,25 +8,31 @@ this.modInfo = "No longer can you swim in heavy plate; now your armour, equipmen
 this.version = "1.2.1"
 this.configString = string.gsub(this.modName, "%s+", "")
 this.modes = {
-	equippedArmour = {
+	{
+		mode = "equippedArmour",
 		value = 0,
 		description = "Actors are pulled down by their combined armour class (Light = 1, Medium = 2, Heavy = 3) multiplied by a tenth of " ..
 		"the down-pull multiplier. Default of 100 makes it impossible to surface in all heavy armour for all but the most Athletic.",
 	},
-	allEquipment = {
+	{
+		mode = "allEquipment",
 		value = 1,
 		description = "Actors are pulled down by double the weight of all equipped gear multiplied by a hundredth of the down-pull multiplier.",
 	},
-	encumbrancePercentage = {
-		value = 2,
-		description = "Actors are pulled down by their encumbrance percentage multiplied by triple the down-pull multiplier.",
-	},
-	allEquipmentNecroEdit = {
+	-- keeping these in this order but with the values unchanged is terrible and I don't care
+	{
+		mode = "allEquipmentNecroEdit",
 		value = 3,
 		description = "Actors are pulled down by double the weight of all equipped gear multiplied by a hundredth of the down-pull multiplier, " ..
 		"except any weight above 135 only counts 10%. Lessens the gap between the lightest and heaviest heavy armours.",
 	},
-	worstCaseScenario = {
+	{
+		mode = "encumbrancePercentage",
+		value = 2,
+		description = "Actors are pulled down by their encumbrance percentage multiplied by triple the down-pull multiplier.",
+	},
+	{
+		mode = "worstCaseScenario",
 		value = 4,
 		description = "Calculates results from all formulas, and uses the highest value.",
 	}

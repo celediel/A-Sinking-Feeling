@@ -11,7 +11,7 @@ this.defaultConfig = {
 		allEquipment = 100,
 		encumbrancePercentage = 100
 	},
-	mode = common.modes.equippedArmour.value,
+	mode = common.modes[1].value,
 	allEquipmentWorstCaseNecroMode = true
 }
 

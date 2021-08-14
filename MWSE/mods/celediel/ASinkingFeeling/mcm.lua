@@ -9,8 +9,8 @@ local function createDescriptions()
     local options = ""
 
     -- list all current modes
-    for mode, _ in pairs(common.modes) do
-        options = options .. common.camelCaseToWords(mode) .. ", "
+    for _, t in ipairs(common.modes) do
+        options = options .. common.camelCaseToWords(t.mode) .. ", "
     end
 
     -- strip off ending ", "
@@ -20,8 +20,8 @@ local function createDescriptions()
     description = description .. options
 
     -- add descriptions to description
-    for mode, t in pairs(common.modes) do
-        description = description .. "\n\n" .. common.camelCaseToWords(mode) .. ": " .. t.description
+    for _, t in ipairs(common.modes) do
+        description = description .. "\n\n" .. common.camelCaseToWords(t.mode) .. ": " .. t.description
     end
 
     return description
@@ -30,8 +30,8 @@ end
 local function createOptions()
     local options = {}
 
-    for mode, t in pairs(common.modes) do
-        options[#options+1] = {label = common.camelCaseToWords(mode), value = t.value}
+    for _, t in ipairs(common.modes) do
+        options[#options+1] = {label = common.camelCaseToWords(t.mode), value = t.value}
     end
 
     return options

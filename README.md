@@ -11,7 +11,9 @@
 No longer can you swim in heavy plate; now your armour, equipment, or carried items drag you down while swimming. Options exist for formulas
 based on equipped armour weight class, total equipment weight, or encumbrance percentage.
 
-[Video of the mod in action](https://gfycat.com/needysevereisabellineshrike).
+[Video of the mod in action](https://gfycat.com/needysevereisabellineshrike) |
+[NexusMods](https://www.nexusmods.com/morrowind/mods/50113) |
+[GitHub](https://github.com/celediel/Morrowind-A-Sinking-Feeling)
 
 ## Formulas ##
 

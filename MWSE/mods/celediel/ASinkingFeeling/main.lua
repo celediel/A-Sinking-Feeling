@@ -57,7 +57,7 @@ formulas.allEquipmentNecroEdit = function(actor, ref)
     -- Thanks Necrolesian for this formula
     -- https://forums.nexusmods.com/index.php?/topic/10349253-a-sinking-feeling/page-2#entry97870268
     local term1 = ((config.multipliers.allEquipment / 100) * totalWeight) * 2
-    local term2 = ((config.multipliers.allEquipment / 100) * (totalWeight - 135) * 0.2 + 270)
+    local term2 = (config.multipliers.allEquipment / 100) * ((totalWeight - 135) * 0.2 + 270)
     local downPull = math.min(term1, term2)
     local debugStr = string.format("Pulling %s down by %s (instead of %s) using equipment weight mode (necro edit) (%s total equipment weight)",
         ref.id, downPull, math.max(term1, term2), totalWeight)
@@ -80,11 +80,11 @@ formulas.worstCaseScenario = function(actor, mobile, ref)
     -- todo: maybe loop over formulas to calculate each instead of this
     -- different formulas needing different actor/mobile might make it too unwieldy though
     results.equippedArmour = formulas.equippedArmour(actor, ref)
-    results.allEquipment = formulas.allEquipment(actor, ref)
+    results.encumbrancePercentage = formulas.encumbrancePercentage(mobile, ref)
     if config.allEquipmentWorstCaseNecroMode then
         results.allEquipmentNecroEdit = formulas.allEquipmentNecroEdit(actor, ref)
     else
-        results.encumbrancePercentage = formulas.encumbrancePercentage(mobile, ref)
+        results.allEquipment = formulas.allEquipment(actor, ref)
     end
 
     local largest = common.keyOfLargestValue(results)

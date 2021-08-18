@@ -70,7 +70,7 @@ category:createDropdown({
     label = "Worst or Best Case Scenario All Equipment variety",
     description = "Chooses which variety of the All Equipment formula is used when Worst or Best Case Scenario is selected.",
     options = {
-        { label = "Original Formula)", value = false },
+        { label = "Original Formula", value = false },
         { label = "Necro Edit", value = true }
     },
     variable = createTableVar("caseScenarioNecroMode")

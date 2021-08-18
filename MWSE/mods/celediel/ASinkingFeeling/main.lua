@@ -116,7 +116,7 @@ local function sinkInWater(e)
     local mobile = e.mobile
     local ref = e.reference
     local actor = ref.object
-    local waterLevel = mobile.cell.waterLevel
+    local waterLevel = mobile.cell.waterLevel or 0
     local headHeight = mobile.position.z + mobile.height * 0.8
 
     -- no creatures

@@ -54,7 +54,7 @@ end
 -- picks the key of the largest value out of a key:whatever, value:number table
 this.keyOfLargestValue = function(t)
     local picked
-    local largest = 0
+    local largest = -math.huge
     for key, value in pairs(t) do
         if value > largest then
             largest = value
